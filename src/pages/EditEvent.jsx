@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Container, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
-import { useEvent, useUpdateEvent } from '../integrations/supabase/index.js';
+import { useEvent, useUpdateEvent, useVenues } from '../integrations/supabase/index.js';
 import { useParams } from 'react-router-dom';
 
 const EditEvent = () => {
   const { id } = useParams();
-  const { data: event, isLoading } = useEvent(id);
+  const { data: event, isLoading: isEventLoading } = useEvent(id);
+  const { data: venues, isLoading: isVenuesLoading } = useVenues();
   const updateEvent = useUpdateEvent();
 
   const [eventName, setEventName] = useState('');
@@ -30,7 +31,7 @@ const EditEvent = () => {
     });
   };
 
-  if (isLoading) {
+  if (isEventLoading || isVenuesLoading) {
     return <div>Loading...</div>;
   }
 
@@ -49,8 +50,9 @@ const EditEvent = () => {
           <FormControl id="venue">
             <FormLabel>Venue</FormLabel>
             <Select value={venue} onChange={(e) => setVenue(e.target.value)} placeholder="Select a venue">
-              <option value="venue1">Venue 1</option>
-              <option value="venue2">Venue 2</option>
+              {venues.map((venue) => (
+                <option key={venue.id} value={venue.id}>{venue.name}</option>
+              ))}
             </Select>
           </FormControl>
           <Button type="submit" colorScheme="blue" w="100%">
