@@ -17,17 +17,39 @@ const fromSupabase = async (query) => {
     return data;
 };
 
+/* supabase integration types
+
+table: events
+    id: number
+    created_at: string
+    name: string
+    date: string
+    venue: number
+
+table: comments
+    id: number
+    created_at: string
+    content: string
+    event_id: number
+
+table: venues
+    id: number
+    created_at: string
+    name: string
+    capacity: number
+    type: string
+
+*/
+
 // Hooks for events table
 export const useEvents = () => useQuery({
     queryKey: ['events'],
     queryFn: () => fromSupabase(supabase.from('events').select('*')),
 });
-
 export const useEvent = (id) => useQuery({
     queryKey: ['events', id],
     queryFn: () => fromSupabase(supabase.from('events').select('*').eq('id', id).single()),
 });
-
 export const useAddEvent = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -37,7 +59,6 @@ export const useAddEvent = () => {
         },
     });
 };
-
 export const useUpdateEvent = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -47,7 +68,6 @@ export const useUpdateEvent = () => {
         },
     });
 };
-
 export const useDeleteEvent = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -63,12 +83,10 @@ export const useComments = () => useQuery({
     queryKey: ['comments'],
     queryFn: () => fromSupabase(supabase.from('comments').select('*')),
 });
-
 export const useComment = (id) => useQuery({
     queryKey: ['comments', id],
     queryFn: () => fromSupabase(supabase.from('comments').select('*').eq('id', id).single()),
 });
-
 export const useAddComment = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -78,7 +96,6 @@ export const useAddComment = () => {
         },
     });
 };
-
 export const useUpdateComment = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -88,7 +105,6 @@ export const useUpdateComment = () => {
         },
     });
 };
-
 export const useDeleteComment = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -104,12 +120,10 @@ export const useVenues = () => useQuery({
     queryKey: ['venues'],
     queryFn: () => fromSupabase(supabase.from('venues').select('*')),
 });
-
 export const useVenue = (id) => useQuery({
     queryKey: ['venues', id],
     queryFn: () => fromSupabase(supabase.from('venues').select('*').eq('id', id).single()),
 });
-
 export const useAddVenue = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -119,7 +133,6 @@ export const useAddVenue = () => {
         },
     });
 };
-
 export const useUpdateVenue = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -129,7 +142,6 @@ export const useUpdateVenue = () => {
         },
     });
 };
-
 export const useDeleteVenue = () => {
     const queryClient = useQueryClient();
     return useMutation({
