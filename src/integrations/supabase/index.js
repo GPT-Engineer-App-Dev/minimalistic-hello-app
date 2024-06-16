@@ -17,32 +17,6 @@ const fromSupabase = async (query) => {
     return data;
 };
 
-/* supabase integration types
-
-table: events
-    id: number
-    created_at: string
-    name: string
-    date: string
-    venue: number // foreign key to venues.id
-
-table: comments
-    id: number
-    created_at: string
-    content: string
-    event_id: number // foreign key to events.id
-    is_pinned: boolean
-    is_highlighted: boolean
-
-table: venues
-    id: number
-    created_at: string
-    name: string
-    capacity: number
-    type: string
-
-*/
-
 // Hooks for events table
 export const useEvents = () => useQuery({
     queryKey: ['events'],
