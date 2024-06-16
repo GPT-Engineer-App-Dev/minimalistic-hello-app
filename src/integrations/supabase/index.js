@@ -24,13 +24,13 @@ table: events
     created_at: string
     name: string
     date: string
-    venue: number
+    venue: number // foreign key to venues.id
 
 table: comments
     id: number
     created_at: string
     content: string
-    event_id: number
+    event_id: number // foreign key to events.id
 
 table: venues
     id: number
@@ -38,10 +38,10 @@ table: venues
     name: string
     capacity: number
     type: string
+    pinned: boolean
 
 */
 
-// Hooks for events table
 export const useEvents = () => useQuery({
     queryKey: ['events'],
     queryFn: () => fromSupabase(supabase.from('events').select('*')),
@@ -78,7 +78,6 @@ export const useDeleteEvent = () => {
     });
 };
 
-// Hooks for comments table
 export const useComments = () => useQuery({
     queryKey: ['comments'],
     queryFn: () => fromSupabase(supabase.from('comments').select('*')),
@@ -115,7 +114,6 @@ export const useDeleteComment = () => {
     });
 };
 
-// Hooks for venues table
 export const useVenues = () => useQuery({
     queryKey: ['venues'],
     queryFn: () => fromSupabase(supabase.from('venues').select('*')),
