@@ -16,7 +16,7 @@ const EditEvent = () => {
   useEffect(() => {
     if (event) {
       setEventName(event.name);
-      setDate(event.date);
+      setDate(new Date(event.date).toISOString().slice(0, 16)); // Format date for datetime-local input
       setVenue(event.venue);
     }
   }, [event]);
